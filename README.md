@@ -25,3 +25,7 @@ Aplicación Galaxy usando Google Cloud Endpoints en Java.
 
 1. Ejecutar el end-point https://galaxy-155723.appspot.com/_ah/api/galaxy/v1/clima?dia=X, con X=día,
    si se quiere ver la condición climática del día X
+
+   **NOTA:** para esta primera versión a ambos endpoints se le puede pasar un parámetro adicional delta=Y,
+   donde Y representa un número real que denota la precisión en que serán comparados dos números reales,
+   este valor tiene un valor por defecto de 0.1
