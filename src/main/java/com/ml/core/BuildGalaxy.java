@@ -46,11 +46,12 @@ public class BuildGalaxy {
         }
     }
 
-    private void addWeatherDS(String clima, int day, Datastore datastore) {
+    private void addWeatherDS(String clima, double delta, int day, Datastore datastore) {
         String kind = "Weather";
         Key key = datastore.newKeyFactory().setKind(kind).newKey(day);
         Entity galaxyEntity = Entity.newBuilder(key)
                 .set("clima", clima)
+                .set("delta", delta)
                 .build();
 
         datastore.put(galaxyEntity);
@@ -59,7 +60,7 @@ public class BuildGalaxy {
     /**
      * Adds a galaxy into a datastore
      */
-    private void addGalaxyDS(int numberOfDays, Datastore datastore) {
+    private void addGalaxyDS(int numberOfDays, double delta, Datastore datastore) {
         String kind = "Galaxy";
         Key key = datastore.newKeyFactory().setKind(kind).newKey(numberOfDays);
         Entity galaxyEntity = Entity.newBuilder(key)
@@ -67,18 +68,19 @@ public class BuildGalaxy {
                 .set("num-dias-clima-lluvioso", countRainingWeather)
                 .set("num-dias-optimas-condiciones", countOptimalConditions)
                 .set("dia-que-mas-llovio", maxRainingDay)
+                .set("delta", delta)
                 .build();
 
         datastore.put(galaxyEntity);
     }
 
-    public void build(final int numberOfDays, Datastore datastore) {
+    public void build(double delta, final int numberOfDays, Datastore datastore) {
         Galaxy galaxy = new Galaxy();
 
         for (int count = 1; count <= numberOfDays; count++) {
-            if (galaxy.isDroughtWeather()) {
+            if (galaxy.isDroughtWeather(delta)) {
                 countDroughtWeather++;
-            } else if (galaxy.isOptimalConditions()) {
+            } else if (galaxy.isOptimalConditions(delta)) {
                 countOptimalConditions++;
             } else if (galaxy.isRainingWeather()) {
                 countRainingWeather++;
@@ -94,18 +96,18 @@ public class BuildGalaxy {
             galaxy.simulateDay(count);
         }
 
-        addGalaxyDS(numberOfDays, datastore);
+        addGalaxyDS(numberOfDays, delta, datastore);
     }
 
-    public String weatherDay(final int day, Datastore datastore) {
+    public String weatherDay(double delta, final int day, Datastore datastore) {
         Galaxy galaxy = new Galaxy();
         String weatherDescription;
 
         galaxy.simulateDay(day-1);
 
-        if (galaxy.isDroughtWeather()) {
+        if (galaxy.isDroughtWeather(delta)) {
             weatherDescription = Weather.DRAUGHT.getDescription();
-        } else if (galaxy.isOptimalConditions()) {
+        } else if (galaxy.isOptimalConditions(delta)) {
             weatherDescription = Weather.OPTIMAL.getDescription();
         } else if (galaxy.isRainingWeather()) {
             weatherDescription = Weather.RAINING.getDescription();
@@ -113,7 +115,7 @@ public class BuildGalaxy {
             weatherDescription = Weather.NORMAL.getDescription();
         }
 
-        addWeatherDS(weatherDescription, day, datastore);
+        addWeatherDS(weatherDescription, delta, day, datastore);
 
         return weatherDescription;
     }

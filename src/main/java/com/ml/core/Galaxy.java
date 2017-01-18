@@ -39,13 +39,14 @@ public class Galaxy {
         return vulcano;
     }
 
-    public boolean isDroughtWeather() {
-        return GeometricUtil.sameSlope(ferengi.getPoint(), betasoide.getPoint(), vulcano.getPoint(), sun.getPoint());
+    public boolean isDroughtWeather(double delta) {
+        return GeometricUtil.sameSlope(ferengi.getPoint(), betasoide.getPoint(), vulcano.getPoint(),
+                sun.getPoint(), delta);
     }
 
-    public boolean isOptimalConditions() {
+    public boolean isOptimalConditions(double delta) {
         return GeometricUtil.pointDifferentSlope(ferengi.getPoint(), betasoide.getPoint(), vulcano.getPoint(),
-                sun.getPoint());
+                sun.getPoint(), delta);
     }
 
     public boolean isRainingWeather() {

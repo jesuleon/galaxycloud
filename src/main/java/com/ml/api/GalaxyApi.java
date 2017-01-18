@@ -1,9 +1,6 @@
 package com.ml.api;
 
-import com.google.api.server.spi.config.Api;
-import com.google.api.server.spi.config.ApiMethod;
-import com.google.api.server.spi.config.ApiNamespace;
-import com.google.api.server.spi.config.Named;
+import com.google.api.server.spi.config.*;
 import com.google.cloud.datastore.*;
 import com.ml.Constants;
 import com.ml.bean.GalaxyResponse;
@@ -24,7 +21,8 @@ public class GalaxyApi {
     private final Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
 
     @ApiMethod(httpMethod = ApiMethod.HttpMethod.GET, path = "clima", name = "clima")
-    public Weather getWeatherDay(@Named("dia") int day) {
+    public Weather getWeatherDay(@Named("dia") int day,
+                                 @Named("delta") @DefaultValue("0.1") double delta) {
         KeyFactory keyFactory = datastore.newKeyFactory().setKind("Weather");
         Transaction transaction = datastore.newTransaction();
         Entity dayEntity = transaction.get(keyFactory.newKey(day));
@@ -36,16 +34,17 @@ public class GalaxyApi {
             weather.setWeather(dayEntity.getString("clima"));
         } else {
             BuildGalaxy buildGalaxy = new BuildGalaxy();
-            weather.setWeather(buildGalaxy.weatherDay(day, datastore));
+            weather.setWeather(buildGalaxy.weatherDay(delta, day, datastore));
         }
 
         return weather;
     }
 
     @ApiMethod(httpMethod = ApiMethod.HttpMethod.GET, path = "galaxy", name = "galaxy")
-    public GalaxyResponse buildGalaxy(@Named("dias") int days) {
+    public GalaxyResponse buildGalaxy(@Named("dias") int days,
+                                      @Named("delta") @DefaultValue("0.1") double delta) {
         BuildGalaxy buildGalaxy = new BuildGalaxy();
-        buildGalaxy.build(days, datastore);
+        buildGalaxy.build(delta, days, datastore);
 
         KeyFactory keyFactory = datastore.newKeyFactory().setKind("Galaxy");
         Transaction transaction = datastore.newTransaction();

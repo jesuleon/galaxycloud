@@ -15,11 +15,15 @@ public class GeometricUtil {
     }
 
     public static boolean sameSlope(Point p1, Point p2, Point p3, Point p4) {
+        return sameSlope(p1, p2, p3, p4, DELTA);
+    }
+
+    public static boolean sameSlope(Point p1, Point p2, Point p3, Point p4, double delta) {
         double m12 = GeometricUtil.slope(p1, p2);
         double m23 = GeometricUtil.slope(p2, p3);
         double m34 = GeometricUtil.slope(p3, p4);
 
-        if (Math.abs(m12 - m23) < DELTA && Math.abs(m23 - m34) < DELTA) {
+        if (Math.abs(m12 - m23) < delta && Math.abs(m23 - m34) < delta) {
             return true;
         } else {
             return false;
@@ -27,11 +31,15 @@ public class GeometricUtil {
     }
 
     public static boolean pointDifferentSlope(Point p1, Point p2, Point p3, Point pt) {
+        return pointDifferentSlope(p1, p2, p3, pt, DELTA);
+    }
+
+    public static boolean pointDifferentSlope(Point p1, Point p2, Point p3, Point pt, double delta) {
         double m12 = GeometricUtil.slope(p1, p2);
         double m23 = GeometricUtil.slope(p2, p3);
         double m34 = GeometricUtil.slope(p3, pt);
 
-        if (Math.abs(m12 - m23) < DELTA && Math.abs(m23 - m34) >= DELTA) {
+        if (Math.abs(m12 - m23) < delta && Math.abs(m23 - m34) >= delta) {
             return true;
         } else {
             return false;
