@@ -1,12 +1,20 @@
 package com.ml.bean;
 
+import com.google.appengine.repackaged.org.codehaus.jackson.annotate.JsonProperty;
+import com.google.appengine.repackaged.org.codehaus.jackson.annotate.JsonPropertyOrder;
+
 /**
  * Created by JesusLeon on 18/01/2017.
  */
+@JsonPropertyOrder({ "droughtWeather", "rainingWeather", "maxRainingDay", "optimalWeather" })
 public class GalaxyResponse {
+    @JsonProperty("diasClimaSeco")
     private long droughtWeather = 0;
+    @JsonProperty("diasClimaLluvioso")
     private long rainingWeather = 0;
+    @JsonProperty("diasCondicionesOptimas")
     private long optimalWeather = 0;
+    @JsonProperty("diaConMaximoPicoDeLluvia")
     private long maxRainingDay = 0;
 
     public long getDroughtWeather() {

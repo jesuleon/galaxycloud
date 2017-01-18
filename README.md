@@ -1,22 +1,22 @@
-endpoints-galaxy
+API - galaxy
 ==================
 
 Aplicación Galaxy usando Google Cloud Endpoints en Java.
 
 ## Productos
-- [App Engine][1]
+- App Engine
 
 ## Lenguaje
-- [Java][2]
+- Java
 
 ## APIs
-- [Google Cloud Endpoints][3]
-- [Google App Engine Maven plugin][4]
+- Google Cloud Endpoints
+- Google App Engine Maven plugin
 
 ## Instrucciones
 
 1. Ejecutar el end-point https://galaxy-155723.appspot.com/_ah/api/galaxy/v1/galaxy?dias=X, con X=días,
-   si se quieren ver los valores de la galaxia luego de haber pasado X días:
+   si se quieren ver los valores de la galaxia luego de haber pasado X días, esto es:
 
    * Número de días de sequía
    * Número de períodos de lluvia
