@@ -29,3 +29,7 @@ Aplicación Galaxy usando Google Cloud Endpoints en Java.
    **NOTA:** para esta primera versión a ambos endpoints se le puede pasar un parámetro adicional delta=Y,
    donde Y representa un número real que denota la precisión en que serán comparados dos números reales,
    este valor tiene un valor por defecto de 0.1
+
+   **NOTA 2:** una vez que se genere un día o una galaxia con un delta no podrá modificarse, por lo que si
+   se intenta generar nuevamente el dia o la galaxia con un delta distinto, éste será ignorado. Se prevee
+   para una segunda versión el soporte para permitir almacenar mismo día con distintos delta
